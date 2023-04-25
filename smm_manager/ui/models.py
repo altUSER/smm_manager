@@ -1,3 +1,5 @@
 from django.db import models
 
-# Create your models here.
+class Bot(models.Model):
+    auth_token = models.CharField(max_length=64)
+    chanell_id = models.IntegerField()
