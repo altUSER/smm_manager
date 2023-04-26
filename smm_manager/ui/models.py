@@ -8,7 +8,7 @@ class Bot(models.Model):
     owner = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
 class Post(models.Model):
-    postst_title = models.CharField(max_length=256)
+    post_title = models.CharField(max_length=256)
     post_text = models.TextField()
     is_published = models.BooleanField()
     planned_publication_date = models.DateTimeField()
