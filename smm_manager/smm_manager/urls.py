@@ -21,10 +21,12 @@ from ui import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.redirect_to_del_post),
     path('delayed_posts/', views.delayed_posts, name='delayed_posts'),
     path('published_posts/', views.published_posts, name='published_posts'),
     path('new_publication/', views.new_publication, name='new_publication'),
     path('settings/', views.settings, name='settings'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
-    path('register/', views.register, name='register'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+#    path('register/', views.register, name='register'),
 ]
