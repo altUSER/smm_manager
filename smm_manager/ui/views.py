@@ -24,11 +24,34 @@ def new_publication(request):
 
 @login_required
 def settings(request):
+    if request.POST:
+        auth_token = request.POST.get("bot_token")
+        chanell_id = request.POST.get("channel_id")
+
+        print(auth_token, chanell_id)
+        try:
+            bot = Bot.objects.get(owner=request.user)
+            bot.auth_token = auth_token
+            bot.chanell_id = chanell_id
+            bot.save()
+            data = {"auth_token": auth_token, "channel_id": chanell_id, "status": "Данные приняты"}
+            return render(request, "settings.html", context=data)
+        except ObjectDoesNotExist:
+            bot = Bot.objects.create(auth_token=auth_token, chanell_id=chanell_id, owner=request.user)
+            bot.save()
+            data = {"auth_token": auth_token, "channel_id": chanell_id, "status": "Данные приняты"}
+            return render(request, "settings.html", context=data)
+        except Exception as e:
+            data = {"status": e}
+            return render(request, 'settings.html', context=data)
     try:
         bot = Bot.objects.get(owner=request.user)
-        print(bot.id)
+        data = {"auth_token": bot.auth_token, "channel_id": bot.chanell_id}
+        return render(request, 'settings.html', context=data)
     except ObjectDoesNotExist:
         print("Bot do not exsist")
+        return render(request, 'settings.html')
     except Exception as e:
         print(e)
-    return render(request, 'settings.html')
+        data = {"status": e}
+        return render(request, 'settings.html', context=data)
