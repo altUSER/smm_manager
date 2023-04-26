@@ -24,4 +24,6 @@ urlpatterns = [
     path('published_posts/', views.published_posts, name='published_posts'),
     path('new_publication/', views.new_publication, name='new_publication'),
     path('settings/', views.settings, name='settings'),
+    path('login/', views.login, name='login'),
+    path('register/', views.register, name='register'),
 ]

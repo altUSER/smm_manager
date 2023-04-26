@@ -1,4 +1,21 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>This text block is from template settings</h2>
+<div class="container">
+    <div class="form">
+        <form>
+            <h3 style="text-align: center;">Настройки бота</h3>
+            <div class="mb-3">
+                <label for="bot_token" class="form-label">Token</label>
+                <input class="form-control" type="text" id="bot_token">
+            </div>
+            <div class="mb-3">
+                <label for="channel_id" class="form-label">Channel ID</label>
+                <input class="form-control" type="text" id="channel_id">
+            </div>
+            <div class="mb-3" style="text-align: center;">
+                <button type="submit" class="btn btn-primary" id="button" style="text-align: center;">Сохранить изменения</button>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}
