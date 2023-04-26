@@ -16,18 +16,19 @@
         <div class="container">
             <h1 style="text-align: center; text-shadow: 2px 2px #40A7E3;">Логин</h1>
             <div class="form" style="position: relative; top: 30px;">
-                <form>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ next }}">
                     <div class="mb-3">
                         <label for="login_field" class="form-label">Логин</label>
-                        <input type="text" class="form-control" id="login_field">
+                        <input type="text" class="form-control" id="login_field" name="username">
                     </div>
                     <div class="mb-3">
                         <label for="password_field" class="form-label">Пароль</label>
-                        <input type="password" class="form-control" id="password_field">
+                        <input type="password" class="form-control" id="password_field" name="password">
                     </div>
                     <div class="mb-3" style="text-align: center;">
-                        <button type="submit" class="btn btn-primary" id="button"
-                            style="text-align: center;">Войти</button>
+                        <button type="submit" class="btn btn-primary" style="text-align: center;">Войти</button>
                     </div>
                     <div id="resister_link" class="form-text" style="text-align: center;"><a href="/register" style="text-decoration: none;">Нет акканута? Зарегистрируйтесь по этой ссылке</a></div>
                 </form>

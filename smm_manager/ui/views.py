@@ -13,8 +13,8 @@ def new_publication(request):
 def settings(request):
     return render(request, 'settings.html')
 
-def login(request):
-    return render(request, 'login.html')
+#def login(request):
+#    return render(request, 'login.html')
 
 def register(request):
     return render(request, 'register.html')
