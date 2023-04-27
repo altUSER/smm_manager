@@ -10,7 +10,7 @@ const App = {
   methods: {
     async getPosts() {
       try {
-        const {data} = await axios.get(`https://jsonplaceholder.typicode.com/posts?_page=${this.page}&_limit=${this.limit}`)
+        const {data} = await axios.get(`http://127.0.0.1:8000/get_json_published_posts?page=${this.page}&limit=${this.limit}`)
         this.posts.push(...data)
       } catch (e) {
         console.log(e.message)
