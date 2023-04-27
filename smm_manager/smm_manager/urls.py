@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from publisher.views import FrontendTemplateView
 
 from ui import views
 
@@ -24,4 +26,7 @@ urlpatterns = [
     path('published_posts/', views.published_posts, name='published_posts'),
     path('new_publication/', views.new_publication, name='new_publication'),
     path('settings/', views.settings, name='settings'),
+    path('', FrontendTemplateView.as_view()),
 ]
+
+urlpatterns += staticfiles_urlpatterns
