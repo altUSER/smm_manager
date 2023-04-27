@@ -38,8 +38,22 @@ h3 {
     color: #333333;
 }
 
+h5 {
+    font-family: "Montserrat";
+    color: #333333;
+}
+
 a {
     font-family: "Montserrat", Regular;
+}
+
+.card-subtitle {
+    font-family: 'Montserrat';
+    font-size: 14px;
+}
+
+.card {
+    margin-bottom: 30px;
 }
 
 #username {
