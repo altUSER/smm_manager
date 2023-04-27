@@ -14,7 +14,13 @@
     <div class="menu">
         <div class="container">
             <div class="row">
-                <h2>Здравствуйте, <span id="username">@username!</span></h2>
+                <h2>Здравствуйте, <span id="username">
+                    {% if user.is_authenticated %}
+                        {{ user.get_username }}
+                    {% else %}
+                        unknown_user
+                    {% endif %}
+                </span></h2>
             </div>
             <div class="row">
                 <nav class="navbar navbar-expand-lg bg-body-tertiary" id="navbar">
@@ -33,7 +39,7 @@
                                 <a class="nav-link" href="/settings">Настройки</a>
                             </div>
                         </div>
-                        <button class="btn btn-primary" id="button" type="button">Выйти</button>
+                        <button class="btn btn-primary" id="button" type="button" onclick="document.location='/logout'">Выйти</button>
                     </div>
                 </nav>
             </div>

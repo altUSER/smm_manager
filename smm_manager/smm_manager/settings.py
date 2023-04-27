@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,6 +28,10 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+ACCOUNT_AUTHENTICATED_LOGIN_REDIRECTS=True
+LOGIN_URL = '/login'
+LOGIN_REDIRECT_URL = '/delayed_posts'
+LOGOUT_REDIRECT_URL = LOGIN_URL
 
 # Application definition
 
@@ -106,9 +111,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Yekaterinburg'
 
 USE_I18N = True
+
+USE_L10N = True
 
 USE_TZ = True
 

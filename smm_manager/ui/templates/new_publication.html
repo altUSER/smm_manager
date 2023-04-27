@@ -2,19 +2,22 @@
 {% block content %}
 <div class="container">
     <div class="form">
-        <form>
+        <form method="POST" action="/new_publication/">
+            {% csrf_token %}
             <h3 style="text-align: center;">Новая публикация</h3>
             <div class="mb-3">
                 <label for="post_title" class="form-label">Залоловок</label>
-                <input class="form-control" type="text" id="post_title">
+                <input class="form-control" type="text" name="post_title" id="post_title">
+                <span class="error-msg" id="post-title-error"></span>
             </div>
             <div class="mb-3">
                 <label for="post_content" class="form-label">Содержание</label>
-                <textarea class="form-control" id="post_content" rows="3"></textarea>
+                <textarea class="form-control" name="post_content" id="post_content" rows="3"></textarea>
+                <span class="error-msg" id="post-content-error"></span>
             </div>
             <div class="mb-3">
                 <label for="post_date" class="form-label">Дата и время публикации</label>
-                <input type="datetime-local" class="form-control" id="post_date" name="post_date">
+                <input type="datetime-local" class="form-control" name="post_date" id="post_date" name="post_date">
             </div>
             <div class="mb-3" style="text-align: center;">
                 <button type="submit" class="btn btn-primary" id="button" style="text-align: center;">Запланировать
@@ -23,4 +26,51 @@
         </form>
     </div>
 </div>
+
+<script>
+    // отлавливаем событие submit формы
+    document.querySelector('form').addEventListener('submit', function (e) {
+        const PostTitleInput = document.getElementById('post_title');
+        const PostTitleError = document.getElementById('post-title-error');
+        const PostContentInput = document.getElementById('post_content');
+        const PostContentError = document.getElementById('post-content-error');
+
+        let errors = false; // флаг, указывающий на наличие ошибок
+
+        // проверяем поля на валидность
+        if (PostTitleInput.value.length > 64) {
+            e.preventDefault(); // останавливаем отправку формы
+            PostTitleError.innerText = 'Заголовок должен содержать не более 64 символов!';
+            errors = true;
+        } else if (PostTitleInput.value.length < 1) {
+            e.preventDefault(); // останавливаем отправку формы
+            PostTitleError.innerText = 'Это поле обязательно!';
+            errors = true;
+        }
+        else {
+            PostTitleError.innerText = '';
+        }
+
+        if (PostContentInput.value.length < 1) {
+            e.preventDefault(); // останавливаем отправку формы
+            PostContentError.innerText = 'Это поле обязательно!';
+            errors = true;
+        } else {
+            PostContentError.innerText = '';
+        }
+
+        if (errors) {
+            return false; // отменяем отправку формы, если есть ошибки
+        }
+
+        return true; // отправляем форму, если ошибок нет
+    });
+</script>
+
+<style>
+    .error-msg {
+        color: red;
+    }
+</style>
+
 {% endblock %}
