@@ -16,11 +16,8 @@ def new_publication(request):
             post_content = request.POST.get("post_content")
             post_date = parse_datetime(request.POST.get("post_date"))
 
-            print(post_title)
-            print(post_content)
-            print(post_date)
 
-            new_post = Post.objects.create(post_title=post_title, post_text=post_content, planned_publication_date=post_date, owner=request.user)
+            Post.objects.create(post_title=post_title, post_text=post_content, planned_publication_date=post_date, owner=request.user)
 
         return render(request, 'new_publication.html')
     

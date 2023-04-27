@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from ui.models import Post
 from django.core import serializers
+from django.utils import timezone
 import json
 
 @login_required
@@ -15,14 +16,16 @@ def get_json_delayed_posts(request):
     posts_data = Post.objects.filter(owner=request.user, is_published=False).values()[start_index:end_index]
 
     posts = [Post(**data) for data in posts_data]
-    print("test")
-    print(posts)
+
+    for post in posts:
+        post.planned_publication_date = timezone.localtime(post.planned_publication_date)
+
     serialized_objects = serializers.serialize('json', posts)
     deserialized_objects = json.loads(serialized_objects)
 
     for post in deserialized_objects:
         time_string = post["fields"]["planned_publication_date"]
-        formated_time_string = time_string[:time_string.find("T")] + " " + time_string[time_string.find("T")+1:len(time_string)-1]
+        formated_time_string = time_string[:time_string.find("T")] + " " + time_string[time_string.find("T")+1:len(time_string)-9]
         post["fields"]["planned_publication_date"] = formated_time_string
 
     serialized_objects = json.dumps(deserialized_objects)
@@ -39,12 +42,15 @@ def get_json_published_posts(request):
     posts_data = Post.objects.filter(owner=request.user, is_published=True).values()[start_index:end_index]
 
     posts = [Post(**data) for data in posts_data]
+    for post in posts:
+        post.planned_publication_date = timezone.localtime(post.planned_publication_date)
+
     serialized_objects = serializers.serialize('json', posts)
     deserialized_objects = json.loads(serialized_objects)
 
     for post in deserialized_objects:
         time_string = post["fields"]["planned_publication_date"]
-        formated_time_string = time_string[:time_string.find("T")] + " " + time_string[time_string.find("T")+1:len(time_string)-1]
+        formated_time_string = time_string[:time_string.find("T")] + " " + time_string[time_string.find("T")+1:len(time_string)-9]
         post["fields"]["planned_publication_date"] = formated_time_string
 
     serialized_objects = json.dumps(deserialized_objects)
