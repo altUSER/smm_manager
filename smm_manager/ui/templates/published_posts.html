@@ -1,17 +1,20 @@
 {% extends "base.html" %}
 {% block content %}
+
+<h3 style="text-align: center;">Опубликованные посты</h3>
+<br>
+
 {% verbatim %}
-<div id="app" v-cloak>
+<div id="app_pub" v-cloak>
     <div class="posts__post post" v-for="post in posts" :key="post.id">
         <div class="card-body">
             <div class="card">
                 <div class="card-header" style="background: white;">
                     <div class="card-subtitle mb-3 text-muted">
-                        <span class="fw-bold me-2">Статус:</span><span class="badge bg-warning text-dark">Ожидает
-                            публикации</span>
+                        <span class="fw-bold me-2">Статус:</span><span class="badge bg-success text-white">Отправлен</span>
                     </div>
                     <div class="card-subtitle text-muted">
-                        <span class="fw-bold me-2">Дата:</span><span class="card-text">27.04.2023, 13:45</span>
+                        <span class="fw-bold me-2">Дата:</span><span class="card-text">{{post.fields.planned_publication_date}}</span>
                     </div>
                 </div>
                 <h5 class="card-title" style ="padding: 1% 1.2% 0px;">{{post.fields.post_title}}</h5>

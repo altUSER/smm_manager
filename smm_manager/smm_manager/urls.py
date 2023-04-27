@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from ui import views, setting_view, new_publication_view
+from ui import views, setting_view, new_publication_view, json_posts_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -28,5 +28,6 @@ urlpatterns = [
     path('settings/', setting_view.settings, name='settings'),
     path('login/', auth_views.LoginView.as_view(), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-    path('get_json_published_posts/', views.get_json_published_posts, name='get_json_published_posts'),
+    path('get_json_published_posts/', json_posts_view.get_json_published_posts, name='get_json_published_posts'),\
+    path('get_json_delayed_posts/', json_posts_view.get_json_delayed_posts, name='get_json_delayed_posts'),
 ]
