@@ -46,7 +46,7 @@ a {
     color: #40A7E3;
 }
 
-#button {
+.btn {
     border-radius: 70px;
     background-color: #333333;
     border: #333333;
