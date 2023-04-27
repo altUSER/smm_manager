@@ -10,7 +10,7 @@ import telebot
 from time import sleep
 
 #--settimgs--
-sleep_time=0.1      #time before check posts in seconds
+sleep_time=10      #time before check posts in seconds
 time_delta = 10  #time window four post
 DEBUG=False      #disable send to telegram
 #------------
@@ -24,7 +24,9 @@ def check_and_publicate_post():
     post_for_publicate = Post.objects.filter(is_published=False)
 
     for post in post_for_publicate:
-        delta = timezone.now() - post.planned_publication_date
+        delta = timezone.localtime(timezone.now()) - post.planned_publication_date
+        print(post.id, delta)
+        print(timezone.localtime(timezone.now()), post.planned_publication_date, "\n")
         if abs(delta.total_seconds()) < time_delta:
             owner = post.owner
             bot = Bot.objects.get(owner=owner)
@@ -39,4 +41,4 @@ def check_and_publicate_post():
 if __name__ == "__main__":
     while True:
         check_and_publicate_post()
-        sleep(0.1)
+        sleep(sleep_time)

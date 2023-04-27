@@ -14,16 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
 from django.urls import path
 
-from ui import views
+from ui import views, setting_view, new_publication_view, json_posts_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', views.redirect_to_del_post),
     path('delayed_posts/', views.delayed_posts, name='delayed_posts'),
     path('published_posts/', views.published_posts, name='published_posts'),
-    path('new_publication/', views.new_publication, name='new_publication'),
-    path('settings/', views.settings, name='settings'),
-    path('login/', views.login, name='login'),
-    path('register/', views.register, name='register'),
+    path('new_publication/', new_publication_view.new_publication, name='new_publication'),
+    path('settings/', setting_view.settings, name='settings'),
+    path('login/', auth_views.LoginView.as_view(), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('get_json_published_posts/', json_posts_view.get_json_published_posts, name='get_json_published_posts'),\
+    path('get_json_delayed_posts/', json_posts_view.get_json_delayed_posts, name='get_json_delayed_posts'),
 ]
