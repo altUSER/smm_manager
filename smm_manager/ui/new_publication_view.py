@@ -20,9 +20,13 @@ def new_publication(request):
             print(post_content)
             print(post_date)
 
-            new_post = Post.objects.create(post_title=post_title, post_text=post_content, planned_publication_date=post_date, owner=request.user)
-
-        return render(request, 'new_publication.html')
+            try:
+                Post.objects.create(post_title=post_title, post_text=post_content, planned_publication_date=post_date, owner=request.user)
+                data = {"status": "Публикация добавлена"}
+                return render(request, 'new_publication.html', context=data)
+            except Exception as e:
+                data = {"status": e}
+                return render(request, 'new_publication.html', context=data)
     
     except ObjectDoesNotExist:
         return render(request, 'new_publication_without_bot.html')
