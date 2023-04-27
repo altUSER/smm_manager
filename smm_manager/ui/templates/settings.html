@@ -7,11 +7,13 @@
             <h3 style="text-align: center;">Настройки бота</h3>
             <div class="mb-3">
                 <label for="bot_token" class="form-label">Token</label>
-                <input class="form-control" type="text" name="bot_token" type="text" id="bot_token" value="{{auth_token}}" required>
+                <input class="form-control" type="text" name="bot_token" type="text" id="bot_token" value="{{auth_token}}">
+                <span class="error-msg" id="bot-token-error"></span>
             </div>
             <div class="mb-3">
                 <label for="channel_id" class="form-label">Channel ID</label>
-                <input class="form-control" type="text" name="channel_id" type="number" id="channel_id" value="{{channel_id}}" required>
+                <input class="form-control" type="text" name="channel_id" type="number" id="channel_id" value="{{channel_id}}">
+                <span class="error-msg" id="channel-id-error"></span>
             </div>
             <div class="mb-3" style="text-align: center;">
                 <button type="submit" class="btn btn-primary" id="button" style="text-align: center;">Сохранить изменения</button>
@@ -21,4 +23,40 @@
         </form>
     </div>
 </div>
+
+<script>
+    // отлавливаем событие submit формы
+    document.querySelector('form').addEventListener('submit', function(e) {
+      const botTokenInput = document.getElementById('bot_token');
+      const botTokenError = document.getElementById('bot-token-error');
+      const channelIdInput = document.getElementById('channel_id');
+      const channelIdError = document.getElementById('channel-id-error');
+  
+      // проверяем поля на валидность
+      if (botTokenInput.value.length > 64) {
+        e.preventDefault(); // останавливаем отправку формы
+        botTokenError.innerText = 'Bot Token должен быть не длиннее 64 символов';
+      } else if (botTokenInput.value.length < 1) {
+        e.preventDefault(); // останавливаем отправку формы
+        botTokenError.innerText = 'Это поле обязательно!'; }
+      else {
+        botTokenError.innerText = '';
+      }
+  
+      if (channelIdInput.value < 10000000 || channelIdInput.value > 100000000000) {
+        e.preventDefault(); // останавливаем отправку формы
+        channelIdError.innerText = 'Channel ID должен быть от 10000000 до 100000000000';
+      } else {
+        channelIdError.innerText = '';
+      }
+    });
+  </script>
+
+  <style>
+    .error-msg 
+    {
+        color: red;
+    }
+  </style>
+
 {% endblock %}
