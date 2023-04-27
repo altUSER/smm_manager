@@ -2,8 +2,9 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.dateparse import parse_datetime
+from smm_manager.settings import TIME_ZONE
 
-from ui.models import Bot
+from ui.models import Bot, Post
 
 @login_required
 def new_publication(request):
@@ -18,6 +19,8 @@ def new_publication(request):
             print(post_title)
             print(post_content)
             print(post_date)
+
+            new_post = Post.objects.create(post_title=post_title, post_text=post_content, planned_publication_date=post_date, owner=request.user)
 
         return render(request, 'new_publication.html')
     
