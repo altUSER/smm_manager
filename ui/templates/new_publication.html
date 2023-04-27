@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="form">
+        <form>
+            <h3 style="text-align: center;">Новая публикация</h3>
+            <div class="mb-3">
+                <label for="post_title" class="form-label">Залоловок</label>
+                <input class="form-control" type="text" id="post_title">
+            </div>
+            <div class="mb-3">
+                <label for="post_content" class="form-label">Содержание</label>
+                <textarea class="form-control" id="post_content" rows="3"></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="post_date" class="form-label">Дата и время публикации</label>
+                <input type="datetime-local" class="form-control" id="post_date" name="post_date">
+            </div>
+            <div class="mb-3" style="text-align: center;">
+                <button type="submit" class="btn btn-primary" id="button" style="text-align: center;">Запланировать
+                    публикацию</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
