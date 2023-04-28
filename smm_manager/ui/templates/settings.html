@@ -43,7 +43,7 @@
         botTokenError.innerText = '';
       }
   
-      if (channelIdInput.value < 10000000 || channelIdInput.value > 100000000000) {
+      if (channelIdInput.value.length < 8 || channelIdInput.value.length > 15) {
         e.preventDefault(); // останавливаем отправку формы
         channelIdError.innerText = 'Channel ID должен быть от 10000000 до 100000000000';
       } else {

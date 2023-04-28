@@ -13,7 +13,7 @@ def settings(request):
             auth_token = request.POST.get("bot_token") # <64 char
             chanell_id = int(request.POST.get("channel_id")) # >8 and <12 chars in int
 
-            if len(auth_token) <= 64 and chanell_id >= 10000000 and chanell_id <= 100000000000:
+            if len(auth_token) <= 64:
 
                 print(auth_token, chanell_id)
                 try:
